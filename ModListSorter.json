@@ -1,0 +1,11 @@
+{
+  "id": "ModListSorter",
+  "name": "ModListSorter",
+  "author": "papaya",
+  "description": "排序Mods",
+  "version": "v0.1",
+  "has_pck": true,
+  "has_dll": true,
+  "dependencies": ["BaseLib"],
+  "affects_gameplay": true
+}

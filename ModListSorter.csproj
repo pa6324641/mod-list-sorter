@@ -1,0 +1,175 @@
+<Project Sdk="Godot.NET.Sdk/4.5.1">
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>true</ImplicitUsings>
+        <Nullable>enable</Nullable> <!--Makes code analysis regarding null values stricter.-->
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <DefaultItemExcludes>packages/**</DefaultItemExcludes>
+        <AppOutputBase>$(MSBuildProjectDirectory)\</AppOutputBase>
+        <PathMap>$(AppOutputBase)=.\</PathMap>
+    </PropertyGroup>
+
+    <!-- OS Detection -->
+    <PropertyGroup>
+        <IsWindows>false</IsWindows>
+        <IsLinux>false</IsLinux>
+        <IsOSX>false</IsOSX>
+        <IsWindows Condition="$([MSBuild]::IsOSPlatform('Windows'))">true</IsWindows>
+        <IsLinux Condition="$([MSBuild]::IsOSPlatform('Linux'))">true</IsLinux>
+        <IsOSX Condition="$([MSBuild]::IsOSPlatform('OSX'))">true</IsOSX>
+    </PropertyGroup>
+
+    <!-- // NOTE: Megadot is version 4.5.1, and the game won't load your .pck if the Godot version used is newer. -->
+
+    <!-- Windows -->
+    <PropertyGroup Condition="'$(IsWindows)' == 'true'">
+        <GodotPath Condition="'$(GodotPath)' == ''">C:/Users/Jeret/Desktop/Godot/4.5.1/Godot_v4.5.1-stable_mono_win64/Godot_v4.5.1-stable_mono_win64.exe</GodotPath>
+        <!-- If on Windows and Slay the Spire 2 is not installed in your default steam library, adjust the following.-->
+        <SteamLibraryPath Condition="'$(SteamLibraryPath)' == ''">D:/SteamLibrary/steamapps</SteamLibraryPath>
+
+        <!-- The below should not need to be changed. -->
+        <Sts2Path Condition="'$(Sts2Path)' == ''">$(SteamLibraryPath)/common/Slay the Spire 2</Sts2Path>
+        <ModsPath Condition="'$(ModsPath)' == ''">$(Sts2Path)/mods/</ModsPath>
+        <Sts2DataDir Condition="'$(Sts2DataDir)' == ''">$(Sts2Path)/data_sts2_windows_x86_64</Sts2DataDir>
+    </PropertyGroup>
+
+    <!-- Linux -->
+    <PropertyGroup Condition="'$(IsLinux)' == 'true'">
+        <SteamLibraryPath Condition="'$(SteamLibraryPath)' == ''">$(HOME)/.local/share/Steam/steamapps</SteamLibraryPath>
+        <!-- Change the path here if using a downloaded binary instead of the Steam version-->
+        <GodotPath Condition="'$(GodotPath)' == ''">$(SteamLibraryPath)/common/Godot Engine/godot.x11.opt.tools.64</GodotPath>
+
+        <!-- The below should not need to be changed. -->
+        <Sts2Path Condition="'$(Sts2Path)' == ''">$(SteamLibraryPath)/common/Slay the Spire 2</Sts2Path>
+        <ModsPath Condition="'$(ModsPath)' == ''">$(Sts2Path)/mods/</ModsPath>
+        <Sts2DataDir Condition="'$(Sts2DataDir)' == ''">$(Sts2Path)/data_sts2_linuxbsd_x86_64</Sts2DataDir>
+    </PropertyGroup>
+
+    <!-- macOS -->
+    <PropertyGroup Condition="'$(IsOSX)' == 'true'">
+        <SteamLibraryPath Condition="'$(SteamLibraryPath)' == ''">$(HOME)/Library/Application Support/Steam/steamapps</SteamLibraryPath>
+        <GodotPath Condition="'$(GodotPath)' == ''">$(HOME)/Applications/Godot_mono.app/Contents/MacOS/Godot</GodotPath>
+
+        <!-- The below should not need to be changed. -->
+        <Sts2Path Condition="'$(Sts2Path)' == ''">$(SteamLibraryPath)/common/Slay the Spire 2</Sts2Path>
+        <ModsPath Condition="'$(ModsPath)' == ''">$(Sts2Path)/SlayTheSpire2.app/Contents/MacOS/mods/</ModsPath>
+        <Sts2DataDir Condition="'$(Sts2DataDir)' == ''">$(Sts2Path)/SlayTheSpire2.app/Contents/Resources/data_sts2_macos_x86_64</Sts2DataDir>
+    </PropertyGroup>
+
+    <PropertyGroup>
+        <!-- Diasble architecture mismatch warning; mods are ideally built for all platforms (MSIL)
+             while your local StS2 version will be for your specific platform. -->
+        <NoWarn>$(NoWarn);MSB3270</NoWarn>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Reference Include="0Harmony">
+            <HintPath>$(Sts2DataDir)/0Harmony.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="sts2">
+            <HintPath>$(Sts2DataDir)/sts2.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+        <Reference Include="SmartFormat">
+            <HintPath>$(Sts2DataDir)/SmartFormat.dll</HintPath>
+            <Private>false</Private>
+        </Reference>
+
+        <PackageReference Include="Alchyr.Sts2.BaseLib" Version="3.1.0" PrivateAssets="All" />
+        <PackageReference Include="Alchyr.Sts2.ModAnalyzers" Version="0.0.9" />
+        <AdditionalFiles Include="ModListSorter/localization/**/*.json" />
+    </ItemGroup>
+
+    <!--<ItemGroup>
+		<Compile Remove="ModListSorter/**"/>
+        <Compile Remove="shaders/**"/>
+        <EmbeddedResource Remove="ModListSorter/**"/>
+        <EmbeddedResource Remove="shaders/**"/>
+    </ItemGroup> -->
+
+    <ItemGroup>
+        <None Include=".gitignore" />
+        <None Include="ModListSorter.json" />
+        <None Include="project.godot" />
+        <None Include="ModListSorter/**" />
+		<None Include="**/*.tscn" />
+		<None Include="**/*.tres" />
+    </ItemGroup>
+
+    <!--<<ItemGroup>
+        <<Folder Include="ModListSorter\materials\transitions\"/>
+    <</ItemGroup>-->
+
+    <ItemGroup>
+        <!--<Content Include="images\ui\top_panel\character_icon_ModListSorter2_outline.png"/>-->
+        <Content Include="images\ui\top_panel\character_icon_ModListSorter2.png" />
+        <Content Include="images\ui\top_panel\character_icon_ModListSorter2.png.import" />
+    </ItemGroup>
+
+
+	<Target Name="CopyToModsFolderOnBuild" AfterTargets="PostBuildEvent">
+        <Message Text="正在複製 .dll 和 manifest 檔案到 mods 文件夾..." Importance="high" />
+        <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(ModsPath)$(MSBuildProjectName)/" />
+        <Copy SourceFiles="ModListSorter.json" DestinationFolder="$(ModsPath)$(MSBuildProjectName)/" />
+        
+        <Message Text="正在複製 BaseLib 3.1.0 到 mods 文件夾..." Importance="high" />
+        <ItemGroup>
+            <BaseLibFiles Include="$(NuGetPackageRoot)alchyr.sts2.baselib/3.1.0/lib/net9.0/BaseLib.dll;&#xA;                                 $(NuGetPackageRoot)alchyr.sts2.baselib/3.1.0/Content/BaseLib.pck;&#xA;                                 $(NuGetPackageRoot)alchyr.sts2.baselib/3.1.0/Content/BaseLib.json;" />
+        </ItemGroup>
+        <Copy SourceFiles="@(BaseLibFiles)" DestinationFolder="$(ModsPath)BaseLib/" />
+    </Target>
+
+    <Target Name="GodotPublish" AfterTargets="Publish" Condition="'$(GodotPath)' != '' and Exists('$(GodotPath)') and '$(IsInnerGodotExport)' != 'true'">
+        <Message Text="Exporting Godot .pck to mods folder" Importance="high" />
+
+        <Exec Command="&quot;$(GodotPath)&quot; --headless --export-pack &quot;BasicExport&quot; &quot;$(ModsPath)$(MSBuildProjectName)/$(MSBuildProjectName).pck&quot;" EnvironmentVariables="IsInnerGodotExport=true;MSBUILDDISABLENODEREUSE=1" ContinueOnError="WarnAndContinue" />
+    </Target>
+
+    <Target Name="GodotPublishSkipped" AfterTargets="Publish" Condition="'$(GodotPath)' == '' or !Exists('$(GodotPath)')">
+        <Message Text="Skipping Godot .pck export because GodotPath is not configured." Importance="high" />
+    </Target>
+
+
+    <!-- ── Release packaging ───────────────────────────────────────── -->
+    <Target Name="CreateReleaseZip" AfterTargets="GodotPublish" Condition="'$(ReleaseVersion)' != ''">
+        <Message Text="Packaging release $(ReleaseVersion)..." Importance="high" />
+
+        <PropertyGroup>
+            <ZipName>ModListSorter-release-$(ReleaseVersion).zip</ZipName>
+            <TempReleaseDir>$(MSBuildProjectDirectory)\_release-temp</TempReleaseDir>
+        </PropertyGroup>
+
+        <!-- Create temp folder structure -->
+        <MakeDir Directories="$(TempReleaseDir)\ModListSorter" />
+        <MakeDir Directories="$(TempReleaseDir)\BaseLib" />
+
+        <!-- Copy ModListSorter files -->
+        <Copy SourceFiles="$(ModsPath)ModListSorter\ModListSorter.dll" DestinationFolder="$(TempReleaseDir)\ModListSorter\" />
+        <Copy SourceFiles="$(ModsPath)ModListSorter\ModListSorter.pck" DestinationFolder="$(TempReleaseDir)\ModListSorter\" />
+        <Copy SourceFiles="$(ModsPath)ModListSorter\ModListSorter.json" DestinationFolder="$(TempReleaseDir)\ModListSorter\" />
+
+        <!-- Copy BaseLib files -->
+        <Copy SourceFiles="$(ModsPath)BaseLib\BaseLib.dll" DestinationFolder="$(TempReleaseDir)\BaseLib\" />
+        <Copy SourceFiles="$(ModsPath)BaseLib\BaseLib.pck" DestinationFolder="$(TempReleaseDir)\BaseLib\" />
+        <Copy SourceFiles="$(ModsPath)BaseLib\BaseLib.json" DestinationFolder="$(TempReleaseDir)\BaseLib\" />
+
+        <!-- Create zip using PowerShell -->
+        <Exec Command="powershell -Command &quot;Compress-Archive -Path '$(TempReleaseDir)\*' -DestinationPath '$(MSBuildProjectDirectory)\$(ZipName)' -Force&quot;" />
+
+        <!-- Cleanup temp folder -->
+        <RemoveDir Directories="$(TempReleaseDir)" />
+
+        <Message Text="Created $(ZipName)" Importance="high" />
+    </Target>
+
+    <Target Name="CreateGitHubRelease" AfterTargets="CreateReleaseZip" Condition="'$(ReleaseVersion)' != ''">
+        <Message Text="Tagging and publishing GitHub release $(ReleaseVersion)..." Importance="high" />
+
+        <Exec Command="git tag $(ReleaseVersion)" />
+        <Exec Command="git push origin $(ReleaseVersion)" />
+        <Exec Command="gh release create $(ReleaseVersion) &quot;$(MSBuildProjectDirectory)\ModListSorter-release-$(ReleaseVersion).zip&quot; --title &quot;ModListSorter $(ReleaseVersion)&quot; --generate-notes" />
+
+        <Message Text="GitHub release $(ReleaseVersion) published!" Importance="high" />
+    </Target>
+</Project>

@@ -8,16 +8,12 @@
 
 config_version=5
 
-[animation]
-
-compatibility/default_parent_skeleton_in_mesh_instance_3d=true
-
 [application]
 
-config/name="JiangXiao"
-config/features=PackedStringArray("4.5", "C#", "Forward Plus")
+config/name="ModListSorter"
+config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
 [dotnet]
 
-project/assembly_name="JiangXiao"
+project/assembly_name="ModListSorter"

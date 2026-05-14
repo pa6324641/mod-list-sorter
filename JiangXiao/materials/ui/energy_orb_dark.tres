@@ -1,7 +1,0 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://ft58cpw2uxdl"]
-
-[ext_resource type="Shader" uid="uid://dpumy2ugymrcc" path="res://JiangXiaoShaders/hsv.gdshader" id="1_vhbdy"]
-
-[resource]
-shader = ExtResource("1_vhbdy")
-shader_parameter/threshold = 0.0

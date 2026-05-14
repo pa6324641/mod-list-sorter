@@ -1,7 +1,0 @@
-[gd_resource type="ShaderMaterial" load_steps=2 format=3 uid="uid://bl6vs7cu08ym7"]
-
-[ext_resource type="Shader" uid="uid://dgc7upq001hxf" path="res://JiangXiao/materials/shaders/vfx_grayscale_particle_shader.gdshader" id="1_2smm1"]
-
-[resource]
-shader = ExtResource("1_2smm1")
-shader_parameter/pivot_offset = Vector2(0, 0)
