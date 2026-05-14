@@ -1,4 +1,8 @@
+using System;
 using System.Reflection;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using BaseLib.Abstracts;
 using BaseLib.Utils;
 using MegaCrit.Sts2.Core.Models;
@@ -14,6 +18,7 @@ using JiangXiaoMod.Code.Character;
 using JiangXiaoMod.Code.Powers.StarMaps;
 using Godot;
 using MegaCrit.Sts2.Core.Commands;
+using MegaCrit.Sts2.Core.Multiplayer.Game;
 
 namespace JiangXiaoMod.Code.Relics;
 
@@ -30,8 +35,11 @@ public sealed class InnerStarMap : CustomRelicModel, IInnerStarMap
         get => _skillPoints; 
         set 
         {
-            if (_skillPoints == value) return;
-            _skillPoints = value;
+            // [新增]：限制技能點最大值為 99999
+            int clampedValue = Math.Min(value, 99999);
+            
+            if (_skillPoints == clampedValue) return;
+            _skillPoints = clampedValue;
 
             // [安全修正]：根據反編譯源碼，增加 IsMutable 檢查
             // 避免在遊戲初始化藍圖時因觸發 Owner 邏輯而崩潰
@@ -62,13 +70,12 @@ public sealed class InnerStarMap : CustomRelicModel, IInnerStarMap
     public static int GetSkillPoints(IRunState? runState)
     {
         var player = runState?.Players.FirstOrDefault();
-        // [修正]：這裡應能獲取基礎版或升級版。利用 OfType<RelicModel> 並檢查 ID 較安全
-        var relic = player?.Relics.FirstOrDefault(r => r.Id.Entry.Contains("INNER_STAR_MAP"));
         
-        // 利用反射或轉型獲取點數，此處簡化處理
-        if (relic is InnerStarMap normal) return normal.JiangXiaoMod_SkillPoints;
-        if (relic is InnerStarMapPlus plus) return plus.JiangXiaoMod_SkillPoints;
-        return 0;
+        // [優化]：因為我們使用了 IInnerStarMap 介面，所以可以直接尋找實作了該介面的遺物
+        // 這樣就不需要分別判斷是普通版還是 Plus 版了！
+        var starMapRelic = player?.Relics.FirstOrDefault(r => r is IInnerStarMap) as IInnerStarMap;
+        
+        return starMapRelic?.JiangXiaoMod_SkillPoints ?? 0;
     }
 
     public override Task AfterCombatVictory(CombatRoom room)
@@ -89,6 +96,7 @@ public sealed class InnerStarMap : CustomRelicModel, IInnerStarMap
         Flash(); 
         return Task.CompletedTask;
     }
+
     public override Task BeforeRoomEntered(AbstractRoom room)
     {
         int gain = 625;

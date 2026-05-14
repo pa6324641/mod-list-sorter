@@ -5,5 +5,6 @@
   "TO_UPGRADE": "Choose [gold]{Amount}[/gold] card(s) to Upgrade.",
   "TO_TRANSFORM": "Choose [gold]{Amount}[/gold] card(s) to Transform.",
   "TO_REMOVE": "Choose [gold]{Amount}[/gold] card(s) to Remove.",
-  "TO_ENCHANT": "Choose [gold]{Amount}[/gold] card(s) to Enchant."
+  "TO_ENCHANT": "Choose [gold]{Amount}[/gold] card(s) to Enchant.",
+  "TO_PLAY": "Choose [gold]{Amount}[/gold] card(s) to Play。"
 }

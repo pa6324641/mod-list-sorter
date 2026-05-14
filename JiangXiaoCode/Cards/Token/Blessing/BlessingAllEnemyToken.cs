@@ -13,14 +13,14 @@ namespace JiangXiaoMod.Code.Cards.Token;
 using MegaCrit.Sts2.Core.Entities.Players;
 
 [Pool(typeof(TokenCardPool))]
-public sealed class BlessingAllyToken : JiangXiaoCardModel
+public sealed class BlessingAllEnemyToken : JiangXiaoCardModel
 {
-    public const string CardId = "JIANGXIAOMOD-BLESSING-TOKEN-ALLY";
-    public BlessingAllyToken() : base(0, CardType.Skill, CardRarity.Token, TargetType.AnyAlly)
+    public const string CardId = "JIANGXIAOMOD-BLESSING_TOKEN_ALL_ENEMY";
+    public BlessingAllEnemyToken() : base(0, CardType.Skill, CardRarity.Token, TargetType.AllEnemies)
     {
     }
     public override string PortraitPath => $"blessing.png".CardImagePath();
-    
+
     public override HashSet<CardKeyword> CanonicalKeywords =>
     [
         CardKeyword.Exhaust
@@ -29,9 +29,11 @@ public sealed class BlessingAllyToken : JiangXiaoCardModel
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("HealAmount", 6m)];
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-        if (cardPlay.Target != null) {
-            await CreatureCmd.Heal(cardPlay.Target, DynamicVars["HealAmount"].BaseValue);
-            // await PowerCmd.Apply<>();
+        if (CombatState != null){
+            foreach (var e in CombatState.Enemies) {
+                await CreatureCmd.Heal(e, DynamicVars["HealAmount"].BaseValue);
+                await CreatureCmd.Stun(e);
+            }
         }
     }
     protected override void ApplyRankLogic(Player? player, int skillRank)

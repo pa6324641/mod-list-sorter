@@ -28,7 +28,7 @@ namespace JiangXiaoMod.Code.Cards.Common;
 [Pool(typeof(JiangXiaoCardPool))]
 public class AbundantStar : JiangXiaoCardModel
 {
-    public const string CardId = "AbundantStar";
+    public const string CardId = "JIANGXIAOMOD-ABUNDANT_STAR";
 
     public AbundantStar() : base(1, CardType.Skill, CardRarity.Common, TargetType.None)
     {

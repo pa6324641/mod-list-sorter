@@ -20,18 +20,15 @@ namespace JiangXiaoMod.Code.Cards.Uncommon;
 [Pool(typeof(JiangXiaoCardPool))]
 public sealed class FangTianJiDefensive : JiangXiaoCardModel
 {
-    public const string CardId = "FangTianJiDefensive";
+    public const string CardId = "JIANGXIAOMOD-FANG_TIAN_JI_DEFENSIVE";
     
     // 基礎數值定義
-    private const decimal BaseDamage = 12m;
-    private const decimal BaseBlock = 6m;
+    private const decimal BaseDamage = 9m;
+    private const decimal BaseBlock = 3m;
     private const decimal BaseWeak = 1m;
     private const string MVar = "M";
 
-    // 指定圖片路徑
-    public override string PortraitPath => "FangTianJiDefensive.png".CardImagePath();
-
-    public FangTianJiDefensive() : base(3, CardType.Attack, CardRarity.Uncommon, TargetType.AllEnemies)
+    public FangTianJiDefensive() : base(2, CardType.Attack, CardRarity.Uncommon, TargetType.AllEnemies)
     {
         // 初始化傷害、格擋與關鍵字
         JJDamage(BaseDamage, ValueProp.Move);

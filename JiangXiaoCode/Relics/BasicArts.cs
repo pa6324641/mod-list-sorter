@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using BaseLib.Abstracts;
 using BaseLib.Extensions;
 using BaseLib.Utils;
+using Godot;
 using JiangXiaoMod.Code.Character;
 using JiangXiaoMod.Code.Extensions;
 using JiangXiaoMod.Code.Keywords;
@@ -18,6 +19,8 @@ using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Models.Relics;
+using MegaCrit.Sts2.Core.Multiplayer.Game;
+using MegaCrit.Sts2.Core.Runs;
 using MegaCrit.Sts2.Core.Saves.Runs;
 
 namespace JiangXiaoMod.Code.Relics;
@@ -59,7 +62,7 @@ public sealed class BasicArts : CustomRelicModel
     /// <summary>
     /// 計算等級：10點一級，最高7級
     /// </summary>
-    public int GetRank(int points) => Math.Min(7, (points / 10) + 1);
+    public int GetRank(int points) => Math.Min(7, (points / 10));
 
     /// <summary>
     /// 強制清空 STS2 的動態變量快取
@@ -90,28 +93,28 @@ public sealed class BasicArts : CustomRelicModel
     }
 
     /// <summary>
-    /// 卡片打出後的點數成長邏輯 (修正刷新頻率)
+    /// 卡片打出後的點數成長邏輯 (修正刷新頻率並限制最大值為 70)
     /// </summary>
     public override Task AfterCardPlayedLate(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
-    // [STS2_Multiplayer_Safety] 核心判斷：
-    // 檢查打出這張牌的 Owner 是否就是持有這個遺物的 Owner
-    // 這樣可以防止隊友打牌、或是某些特殊召喚物打牌時，錯誤地增加你的技藝點數
-    if (cardPlay.Card.Owner != this.Owner) 
-    {
-        return Task.CompletedTask;
-    }
+        // [STS2_Multiplayer_Safety] 核心判斷：
+        // 檢查打出這張牌的 Owner 是否就是持有這個遺物的 Owner
+        // 這樣可以防止隊友打牌、或是某些特殊召喚物打牌時，錯誤地增加你的技藝點數
+        if (cardPlay.Card.Owner != this.Owner) 
+        {
+            return Task.CompletedTask;
+        }
 
-    var card = cardPlay.Card;
-    bool hasGrown = false;
+        var card = cardPlay.Card;
+        bool hasGrown = false;
 
-        // 檢測關鍵字並增加點數
-        if (card.IsJiangXiaoModUNARMED()) { UnarmedPts++; hasGrown = true; }
-        if (card.IsJiangXiaoModBLADE()) { BladePts++; hasGrown = true; }
-        if (card.IsJiangXiaoModBOW()) { BowPts++; hasGrown = true; }
-        if (card.IsJiangXiaoModDAGGER()) { DaggerPts++; hasGrown = true; }
-        if (card.IsJiangXiaoModHALBERD()) { HalberdPts++; hasGrown = true; }
-        if (card.IsJiangXiaoModCOMBATKNIFE()) { CombatKnifePts++; hasGrown = true; }
+        // 檢測關鍵字並增加點數，且嚴格限制上限為 70
+        if (card.IsJiangXiaoModUNARMED() && UnarmedPts < 70) { UnarmedPts++; hasGrown = true; }
+        if (card.IsJiangXiaoModBLADE() && BladePts < 70) { BladePts++; hasGrown = true; }
+        if (card.IsJiangXiaoModBOW() && BowPts < 70) { BowPts++; hasGrown = true; }
+        if (card.IsJiangXiaoModDAGGER() && DaggerPts < 70) { DaggerPts++; hasGrown = true; }
+        if (card.IsJiangXiaoModHALBERD() && HalberdPts < 70) { HalberdPts++; hasGrown = true; }
+        if (card.IsJiangXiaoModCOMBATKNIFE() && CombatKnifePts < 70) { CombatKnifePts++; hasGrown = true; }
 
         if (hasGrown)
         {
@@ -132,5 +135,4 @@ public sealed class BasicArts : CustomRelicModel
     {
         throw new NotImplementedException();
     }
-
 }

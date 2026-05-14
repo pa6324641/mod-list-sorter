@@ -22,7 +22,7 @@ namespace JiangXiaoMod.Code.Cards.Common;
 public class XiaBladeStyle1 : JiangXiaoCardModel
 {
     // 建議定義 CardId 確保與語系檔對齊
-    public const string CardId = "JIANGXIAOMOD-XIA_BLADE_STYLE_1";
+    public const string CardId = "JIANGXIAOMOD-XIA_BLADE_STYLE1";
 
     public XiaBladeStyle1() : base(1, CardType.Attack, CardRarity.Common, TargetType.AnyEnemy)
     {

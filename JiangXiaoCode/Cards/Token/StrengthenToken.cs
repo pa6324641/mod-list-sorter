@@ -19,7 +19,7 @@ namespace JiangXiaoMod.Code.Cards.Token;
 [Pool(typeof(TokenCardPool))]
 public class StrengthenToken : JiangXiaoCardModel
 {
-    public const string CardId = "StrengthenToken";
+    public const string CardId = "JIANGXIAOMOD-STRENGTHEN_TOKEN";
 
     public StrengthenToken() : base(2, CardType.Skill, CardRarity.Token, TargetType.None)
     {

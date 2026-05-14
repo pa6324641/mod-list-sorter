@@ -25,6 +25,7 @@ public partial class MainFile : Node
 	public static void Initialize()
 	{
 		Logger.Info("江曉模組正在初始化...");
+        
 		
 		Harmony harmony = new(ModId);
 		// 獲取當前 DLL

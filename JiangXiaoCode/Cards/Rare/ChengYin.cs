@@ -18,7 +18,7 @@ namespace JiangXiaoMod.Code.Cards.Rare
     [Pool(typeof(JiangXiaoCardPool))]
     public sealed class ChengYin : JiangXiaoCardModel
     {
-        public const string CardId = "JIANGXIAOMOD-CHENGYIN";
+        public const string CardId = "JIANGXIAOMOD-CHENG_YIN";
         private const string mKey = "M";
 
         public ChengYin() : base(1, CardType.Power, CardRarity.Rare, TargetType.Self)
@@ -78,6 +78,10 @@ namespace JiangXiaoMod.Code.Cards.Rare
                 Owner.Creature, 
                 this
             );
+        }
+        protected override void OnUpgrade()
+        {
+            DynamicVars[mKey].UpgradeValueBy(2m);
         }
     }
 }

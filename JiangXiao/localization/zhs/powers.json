@@ -17,15 +17,15 @@
   
   "JIANGXIAOMOD-YEARNING_HALO_POWER.title": "眷戀光環",
   "JIANGXIAOMOD-YEARNING_HALO_POWER.description": "每一次進攻附帶 [gold]X%[/gold] 吸血。",
-  "JIANGXIAOMOD-YEARNING_HALO_POWER.smartDescription": "每一次進攻附帶 [gold]{M}%[/gold] 吸血。",
+  "JIANGXIAOMOD-YEARNING_HALO_POWER.smartDescription": "每一次進攻附帶 [gold]{Amount}%[/gold] 吸血。",
 
   "JIANGXIAOMOD-RESENTMENT_POWER.title": "怨念",
   "JIANGXIAOMOD-RESENTMENT_POWER.description": "受到攻擊後，有 [gold]X%[/gold] 的機率給予攻擊者隨機負面效果。",
   "JIANGXIAOMOD-RESENTMENT_POWER.smartDescription": "受到攻擊後，有 [gold]{M:diff()}%[/gold] 的機率給予攻擊者隨機負面效果。",
 
   "JIANGXIAOMOD-TEAR_OF_SORROW_POWER.title": "傷淚",
-  "JIANGXIAOMOD-TEAR_OF_SORROW_POWER.description": "在該單位回合開始時，每層使其損失 [gold]5%[/gold] 最大生命值。",
-  "JIANGXIAOMOD-TEAR_OF_SORROW_POWER.smartDescription": "在該單位回合開始時，每層使其損失 [gold]5%[/gold] 最大生命值。",
+  "JIANGXIAOMOD-TEAR_OF_SORROW_POWER.description": "在該單位回合開始時，每層使其損失 [gold]1%[/gold] 最大生命值。",
+  "JIANGXIAOMOD-TEAR_OF_SORROW_POWER.smartDescription": "在該單位回合開始時，使其損失 [gold]{Amount}%[/gold] 最大生命值。",
 
   "JIANGXIAOMOD-BEI_DOU_NINE_STARS_POWER.title": "星圖:北斗九星",
   "JIANGXIAOMOD-BEI_DOU_NINE_STARS_POWER.description": "每打一張牌+1層數，[red]9層數[/red]後。\n獲得[gold]X[/gold]能量、抽[gold]X[/gold]張牌",
@@ -53,6 +53,22 @@
   "JIANGXIAOMOD-PEAK_OF_LIFE_POWER.smartDescription": "",
   "JIANGXIAOMOD-EARTH_STAR_MAP_POWER.title": "星圖:EarthStarMapPower",
   "JIANGXIAOMOD-EARTH_STAR_MAP_POWER.description": "",
-  "JIANGXIAOMOD-EARTH_STAR_MAP_POWER.smartDescription": ""
+  "JIANGXIAOMOD-EARTH_STAR_MAP_POWER.smartDescription": "",
+
+  "JIANGXIAOMOD-COMBAT_KNIFE_ADVANCED_POWER.title": "格鬥刀:進階效果",
+  "JIANGXIAOMOD-COMBAT_KNIFE_ADVANCED_POWER.description": "每打出一張[gold]格鬥刀精通[/gold]或[gold]徒手格鬥[/gold]牌，獲得6點格擋。",
+  "JIANGXIAOMOD-COMBAT_KNIFE_ADVANCED_POWER.smartDescription": "每打出一張[gold]格鬥刀精通[/gold]或[gold]徒手格鬥[/gold]牌，獲得{Amount}點格擋。",
+
+  "JIANGXIAOMOD-SILENCE_POWER.title": "沉默之聲",
+  "JIANGXIAOMOD-SILENCE_POWER.description": "該單位的正面能力已被封存。每回合減少 1 層。\n當層數歸零時，返還所有被封存的能力，並移除 [gold]沉默之聲:星力混亂[/gold] 狀態。",
+  "JIANGXIAOMOD-SILENCE_POWER.smartDescription": "該單位的正面能力已被封存。每回合減少 1 層。\n當層數歸零時，返還所有被封存的能力，並移除 [gold]沉默之聲:星力混亂[/gold] 狀態。",
+  "JIANGXIAOMOD-SILENCE_DAMAGE_POWER.title": "沉默之聲:星力混亂",
+  "JIANGXIAOMOD-SILENCE_DAMAGE_POWER.description": "回合開始時，失去 [red]X[/red] 點生命。",
+  "JIANGXIAOMOD-SILENCE_DAMAGE_POWER.smartDescription": "回合開始時，失去 [red]{Amount}[/red] 點生命。",
+
+  "JIANGXIAOMOD-DOMAIN_OF_TEARS_POWER.title": "域淚",
+  "JIANGXIAOMOD-DOMAIN_OF_TEARS_POWER.description": "回合開始時，優先從[gold]抽牌堆[/gold]（其次消耗、手牌）打出對應牌：\n[red]敵攻[/red]：防護/時空之隙\n[blue]敵防[/blue]：打擊/青芒\n[green]敵技[/green]：治癒/星力充沛\n(打出 (1-3級:1張，4-5級:2張，6級以上:3張)。",
+  "JIANGXIAOMOD-DOMAIN_OF_TEARS_POWER.smartDescription": "回合開始時，優先從[gold]抽牌堆[/gold]（其次消耗、手牌）打出對應牌：\n[red]敵攻[/red]：防護/時空之隙\n[blue]敵防[/blue]：打擊/青芒\n[green]敵技[/green]：治癒/星力充沛\n(目前打出 {Amount} 張)。"
+
 
 }

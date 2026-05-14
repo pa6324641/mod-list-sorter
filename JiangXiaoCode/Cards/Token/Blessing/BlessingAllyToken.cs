@@ -13,14 +13,14 @@ namespace JiangXiaoMod.Code.Cards.Token;
 using MegaCrit.Sts2.Core.Entities.Players;
 
 [Pool(typeof(TokenCardPool))]
-public sealed class BlessingEnemyToken : JiangXiaoCardModel
+public sealed class BlessingAllyToken : JiangXiaoCardModel
 {
-    public const string CardId = "JIANGXIAOMOD-BLESSING-TOKEN-ENEMY";
-    public BlessingEnemyToken() : base(0, CardType.Skill, CardRarity.Token, TargetType.AnyEnemy)
+    public const string CardId = "JIANGXIAOMOD-BLESSING_TOKEN_ALLY";
+    public BlessingAllyToken() : base(0, CardType.Skill, CardRarity.Token, TargetType.AnyAlly)
     {
     }
     public override string PortraitPath => $"blessing.png".CardImagePath();
-
+    
     public override HashSet<CardKeyword> CanonicalKeywords =>
     [
         CardKeyword.Exhaust
@@ -31,7 +31,7 @@ public sealed class BlessingEnemyToken : JiangXiaoCardModel
     {
         if (cardPlay.Target != null) {
             await CreatureCmd.Heal(cardPlay.Target, DynamicVars["HealAmount"].BaseValue);
-            await CreatureCmd.Stun(cardPlay.Target);
+            // await PowerCmd.Apply<>();
         }
     }
     protected override void ApplyRankLogic(Player? player, int skillRank)

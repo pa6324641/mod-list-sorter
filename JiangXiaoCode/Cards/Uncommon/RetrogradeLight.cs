@@ -11,18 +11,25 @@ using JiangXiaoMod.Code.Cards.Token;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
 using BaseLib.Utils;
 using JiangXiaoMod.Code.Character;
+using JiangXiaoMod.Code.Keywords;
+using MegaCrit.Sts2.Core.HoverTips;
 
 namespace JiangXiaoMod.Code.Cards.Uncommon;
 
 [Pool(typeof(JiangXiaoCardPool))]
 public class RetrogradeLight : JiangXiaoCardModel
 {
-    public const string CardId = "RetrogradeLight";
+    public const string CardId = "JIANGXIAOMOD-RETROGRADE_LIGHT";
 
     // [STS2_API] 構造函數：cost=2(升級後1), 類型=技能, 稀有度=罕見, 目標=自身
     public RetrogradeLight() : base(2, CardType.Skill, CardRarity.Uncommon, TargetType.Self, true)
     {
+        JJKeywordAndTip(JiangXiaoModKeywords.Star);
     }
+    protected override IEnumerable<IHoverTip> ExtraHoverTips => [
+        HoverTipFactory.FromCard<RetrogradeLightEnemy>(),
+        HoverTipFactory.FromCard<RetrogradeLightAlly>()
+    ];
 
     protected override void ApplyRankLogic(Player? player, int skillRank)
     {

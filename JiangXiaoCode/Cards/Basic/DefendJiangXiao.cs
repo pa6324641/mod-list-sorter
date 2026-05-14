@@ -24,6 +24,7 @@ namespace JiangXiaoMod.Code.Cards.Basic;
 [Pool(typeof(JiangXiaoCardPool))]
 public sealed class DefendJiangXiao : JiangXiaoCardModel
 {
+    public const string CardId = "JIANGXIAOMOD-DEFEND_JIANG_XIAO";
     private const decimal BaseBlock = 5m;
     private const decimal UpgradeBlock = 3m;
     private const decimal RankBonus = 2m;

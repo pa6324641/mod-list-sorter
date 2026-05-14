@@ -40,10 +40,13 @@ public sealed class InnerStarMapPlus : CustomRelicModel, IInnerStarMap
         get => _skillPoints; 
         set 
         {
-            if (_skillPoints == value) return;
-            _skillPoints = value;
+            // [新增]：限制技能點最大值為 99999
+            int clampedValue = Math.Min(value, 99999);
+            
+            if (_skillPoints == clampedValue) return;
+            _skillPoints = clampedValue;
 
-            // [關鍵修正]：升級版也必須通知其他遺物刷新
+            // [關鍵修正]：升級版也必須通知其他遺物刷新，保持與基礎版同步
             if (base.IsMutable && Owner != null)
             {
                 var player = Owner;
@@ -51,6 +54,8 @@ public sealed class InnerStarMapPlus : CustomRelicModel, IInnerStarMap
                 player.Relics.OfType<StarSkillQuality>().FirstOrDefault()?.RefreshDisplay();
                 // 通知等級遺物
                 player.Relics.OfType<StarPowerLevel>().FirstOrDefault()?.RefreshDisplay();
+                // [新增] 通知技藝遺物刷新 (對齊基礎版邏輯)
+                player.Relics.OfType<BasicArts>().FirstOrDefault()?.RefreshDisplay();
             }
 
             RefreshDynamicText(); 
@@ -70,21 +75,25 @@ public sealed class InnerStarMapPlus : CustomRelicModel, IInnerStarMap
         DynamicVarsField?.SetValue(this, null);
     }
 
-    // [修正]：根據反編譯源碼第 431 行，正確的掛鉤是 AfterObtained
-    public override Task AfterObtained()
+    /// <summary>
+    /// 當獲得升級版遺物時，從緩存中恢復點數
+    /// </summary>
+    public override async Task AfterObtained()
     {
+        await base.AfterObtained();
+
         // 檢查是否有從升級前傳遞過來的數據
         if (_transferPointsBuffer != -1)
         {
+            // 透過 Setter 賦值，會自動觸發 Clamp(99999) 與 UI 刷新
             this.JiangXiaoMod_SkillPoints = _transferPointsBuffer;
             _transferPointsBuffer = -1; // 使用後清除緩存
         }
-        
-        return base.AfterObtained(); // 返回基類的 Task (通常是 Task.CompletedTask)
     }
 
     public override Task AfterCombatVictory(CombatRoom room)
     {
+        // 升級版獲得更高的點數
         int gain = 1250;
         if (room != null)
         {
@@ -101,8 +110,10 @@ public sealed class InnerStarMapPlus : CustomRelicModel, IInnerStarMap
         Flash(); 
         return Task.CompletedTask;
     }
+
     public override Task BeforeRoomEntered(AbstractRoom room)
     {
+        // 升級版在進入非戰鬥房間時也獲得更多點數
         int gain = 1250;
         if (room.RoomType == RoomType.Event || room.RoomType == RoomType.Shop || room.RoomType == RoomType.RestSite || room.RoomType == RoomType.Treasure)
         {
@@ -125,22 +136,13 @@ public sealed class InnerStarMapPlus : CustomRelicModel, IInnerStarMap
     // [新增]：偵測北斗九星能力的施加
     public override async Task BeforeCombatStart()
     {
-        // 1. 檢查持有者是否已經擁有該能力（避免重複施加）
-        // STS2 BaseLib 中，使用 HasPower<T>() 擴展方法
         if (!Owner.HasPower<BeiDouNineStarsPower>())
         {
-            // 符合條件，在控制台輸出調試資訊
             GD.Print("江曉成功啟動了北斗九星！");
-            
-            // 2. 施加能力：目標為 Owner 的 Creature，層數為 1
-            // [STS2_API] 使用 PowerCmd.Apply 異步執行
             await PowerCmd.Apply<BeiDouNineStarsPower>(Owner.Creature, 1, null, null);
-            
-            // 3. 觸發遺物閃爍視覺效果
             Flash();
         }
 
         await base.BeforeCombatStart();
     }
-    
 }

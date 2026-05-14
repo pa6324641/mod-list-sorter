@@ -84,7 +84,10 @@ public sealed class CleanTears : JiangXiaoCardModel
 
                 if (toPurge.Count > 0)
                 {
+                    //跑動畫移到消耗堆
                     await CardPileCmd.Add(toPurge, PileType.Exhaust, CardPilePosition.Bottom, this);
+                    //直接移除
+                    // await CardPileCmd.RemoveFromCombat(toPurge);
                 }
             }
 

@@ -20,7 +20,7 @@ namespace JiangXiaoMod.Code.Cards.Common;
 [Pool(typeof(JiangXiaoCardPool))]
 public class SecondaryFace : JiangXiaoCardModel
 {
-    public const string CardId = "SecondaryFace";
+    public const string CardId = "JIANGXIAOMOD-Secondary_Face";
 
     public SecondaryFace() : base(3, CardType.Skill, CardRarity.Common, TargetType.None)
     {

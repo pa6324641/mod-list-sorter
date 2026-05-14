@@ -13,26 +13,25 @@ namespace JiangXiaoMod.Code.Cards.Token;
 using MegaCrit.Sts2.Core.Entities.Players;
 
 [Pool(typeof(TokenCardPool))]
-public sealed class BlessingAllEnemyToken : JiangXiaoCardModel
+public sealed class BlessingAllAllyToken : JiangXiaoCardModel
 {
-    public const string CardId = "JIANGXIAOMOD-BLESSING-TOKEN-ALL-ENEMY";
-    public BlessingAllEnemyToken() : base(0, CardType.Skill, CardRarity.Token, TargetType.AllEnemies)
+    public const string CardId = "JIANGXIAOMOD-BLESSING_TOKEN_ALL_ALLY";
+    public BlessingAllAllyToken() : base(0, CardType.Skill, CardRarity.Token, TargetType.None)
     {
     }
     public override string PortraitPath => $"blessing.png".CardImagePath();
-
     public override HashSet<CardKeyword> CanonicalKeywords =>
     [
         CardKeyword.Exhaust
     ];
 
     protected override IEnumerable<DynamicVar> CanonicalVars => [new DynamicVar("HealAmount", 6m)];
+
     protected override async Task OnPlay(PlayerChoiceContext choiceContext, CardPlay cardPlay)
     {
         if (CombatState != null){
-            foreach (var e in CombatState.Enemies) {
+            foreach (var e in CombatState.Allies) {
                 await CreatureCmd.Heal(e, DynamicVars["HealAmount"].BaseValue);
-                await CreatureCmd.Stun(e);
             }
         }
     }

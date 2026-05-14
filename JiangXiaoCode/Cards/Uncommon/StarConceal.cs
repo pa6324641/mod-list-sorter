@@ -21,7 +21,7 @@ namespace JiangXiaoMod.Code.Cards.Uncommon;
 [Pool(typeof(JiangXiaoCardPool))]
 public class StarConceal : JiangXiaoCardModel
 {
-    public const string CardId = "StarConceal";
+    public const string CardId = "JIANGXIAOMOD-STAR_CONCEAL";
 
     public StarConceal() : base(2, CardType.Skill, CardRarity.Uncommon, TargetType.AnyAlly)
     {

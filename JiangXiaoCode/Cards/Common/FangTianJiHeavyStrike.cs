@@ -19,15 +19,12 @@ namespace JiangXiaoMod.Code.Cards.Common;
 [Pool(typeof(JiangXiaoCardPool))]
 public sealed class FangTianJiHeavyStrike : JiangXiaoCardModel
 {
-    public const string CardId = "FangTianJiHeavyStrike";
+    public const string CardId = "JIANGXIAOMOD-FANG_TIAN_JI_HEAVY_STRIKE";
     
     // 基礎數值定義
     private const decimal BaseDamage = 9m;
     private const decimal BaseVulnerable = 1m;
     private const string MVar = "M";
-
-    // 強制指定圖片路徑，解決大小寫/底線不匹配導致的載入錯誤
-    public override string PortraitPath => "FangTianJiHeavyStrike.png".CardImagePath();
 
     public FangTianJiHeavyStrike() : base(2, CardType.Attack, CardRarity.Common, TargetType.AllEnemies)
     {

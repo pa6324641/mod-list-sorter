@@ -90,7 +90,7 @@ public class ResentmentPower : JiangXiaoPowerModel
     private async Task ApplyRandomDebuff(PlayerChoiceContext context, Creature dealer, Rng rng)
     {
         int currentRank = GetCurrentSkillRank();
-        int varAmount = (currentRank + 1) * 2;
+        int varAmount = currentRank * 2;
 
         int roll = rng.NextInt(0, 7); 
 
@@ -101,7 +101,7 @@ public class ResentmentPower : JiangXiaoPowerModel
             case 0: await PowerCmd.Apply<DexterityPower>(dealer, -varAmount, Owner, null); break; // 修正：負面效果應為負數
             case 1: await PowerCmd.Apply<VulnerablePower>(dealer, varAmount, Owner, null); break;
             case 2: await PowerCmd.Apply<FrailPower>(dealer, varAmount, Owner, null); break;
-            case 3: await PowerCmd.Apply<ShrinkPower>(dealer, 1, Owner, null); break;
+            case 3: await PowerCmd.Apply<ShrinkPower>(dealer, varAmount, Owner, null); break;
             case 4: await PowerCmd.Apply<PoisonPower>(dealer, varAmount * 3, Owner, null); break;
             case 5: await PowerCmd.Apply<DoomPower>(dealer, varAmount * 3, Owner, null); break;
             case 6: await PowerCmd.Apply<StrengthPower>(dealer, -varAmount, Owner, null); break;

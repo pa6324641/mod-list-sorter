@@ -3,7 +3,7 @@
   "name": "JiangXiao",
   "author": "papaya",
   "description": "來自「九星毒奶」的江曉到殺戮之塔2囉！",
-  "version": "v0.1.4",
+  "version": "v0.1.6",
   "has_pck": true,
   "has_dll": true,
   "dependencies": ["BaseLib"],

@@ -2,22 +2,18 @@ using BaseLib.Abstracts;
 using MegaCrit.Sts2.Core.Models;
 using MegaCrit.Sts2.Core.Context;
 using MegaCrit.Sts2.Core.Commands;
-using JiangXiaoMod.Code.Relics;
 using JiangXiaoMod.Code.Powers;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MegaCrit.Sts2.Core.Localization.DynamicVars;
 using MegaCrit.Sts2.Core.Entities.Cards;
-using BaseLib.Utils;
-using MegaCrit.Sts2.Core.HoverTips;
 using MegaCrit.Sts2.Core.Models.Powers;
 using JiangXiaoMod.Code.Keywords;
 using JiangXiaoMod.Code.Cards.CardModels;
 using MegaCrit.Sts2.Core.Entities.Players;
-using JiangXiaoMod.Code.Character;
-using JiangXiaoMod.Code.Cards.Rare;
 using MegaCrit.Sts2.Core.GameActions.Multiplayer;
+using BaseLib.Utils;
+using JiangXiaoMod.Code.Character;
 
 namespace JiangXiaoMod.Code.Cards.Uncommon;
 
@@ -33,23 +29,24 @@ public class Yearning : JiangXiaoCardModel
         target: TargetType.Self
     )
     {
+        // 初始化自定義變量 M 用於卡面顯示
         JJCustomVar(VarM, 10m);
         JJKeywordAndTip(JiangXiaoModKeywords.Star);
         JJPowerTip<YearningHaloPower>();
     }
 
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => [
-        HoverTipFactory.FromCard<Dawn>()
-    ];
-
     protected override void ApplyRankLogic(Player? player, int skillRank)
     {
-        // 公式：5 + (等級 * 5) -> 1:10, 2:15, 3:20
+        // 依照您的註解公式：5 + (等級 * 5) 
+        // 等級 1: 10%
+        // 等級 2: 15%
+        // 等級 3: 20%
         DynamicVars[VarM].BaseValue = 5m + (skillRank * 5m);
     }
 
     protected override void OnUpgrade()
     {
+        // 升級降低費用的邏輯不變
         EnergyCost.UpgradeBy(-2);
         UpdateStatsBasedOnRank();
     }
@@ -59,8 +56,9 @@ public class Yearning : JiangXiaoCardModel
         var combat = CombatState;
         if (combat == null || Owner?.Creature == null) return;
 
+        // 確保數值是最新的
         UpdateStatsBasedOnRank();
-        int currentM = (int)DynamicVars[VarM].BaseValue;
+        int lifestealPercent = (int)DynamicVars[VarM].BaseValue;
 
         // 尋找擁有「DawnPower」能力的所有盟友
         var alliesWithDawn = combat.Allies
@@ -69,15 +67,14 @@ public class Yearning : JiangXiaoCardModel
 
         if (alliesWithDawn.Any())
         {
-            // 若有目標符合，僅對他們施加
-            await PowerCmd.Apply<YearningHaloPower>(alliesWithDawn, currentM, Owner.Creature, this);
+            // 將計算出的百分比作為「層數」施加
+            await PowerCmd.Apply<YearningHaloPower>(alliesWithDawn, lifestealPercent, Owner.Creature, this);
         }
         else
         {
-            // [修正] 解決 CS1061 錯誤：
-            // 使用 LINQ 的 Concat 將 Allies 與 Enemies 合併，以獲取全場單位
+            // 對全場單位施加
             var allUnits = combat.Allies.Concat(combat.Enemies).ToList();
-            await PowerCmd.Apply<YearningHaloPower>(allUnits, currentM, Owner.Creature, this);
+            await PowerCmd.Apply<YearningHaloPower>(allUnits, lifestealPercent, Owner.Creature, this);
         }
     }
 }

@@ -25,7 +25,7 @@ namespace JiangXiaoMod.Code.Cards.Rare;
 [Pool(typeof(JiangXiaoCardPool))]
 public sealed class XiaBladeStyle3 : JiangXiaoCardModel
 {
-    public const string CardId = "JIANGXIAOMOD-XIA-BLADE-3";
+    public const string CardId = "JIANGXIAOMOD-XIA_BLADE_STYLE3";
 
     // 定義常量以便於維護
     private const decimal BaseVal = 3m;

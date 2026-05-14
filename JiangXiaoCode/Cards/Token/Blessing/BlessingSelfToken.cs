@@ -15,7 +15,7 @@ using MegaCrit.Sts2.Core.Entities.Players;
 [Pool(typeof(TokenCardPool))]
 public sealed class BlessingSelfToken : JiangXiaoCardModel
 {
-    public const string CardId = "JIANGXIAOMOD-BLESSING-TOKEN-SELF";
+    public const string CardId = "JIANGXIAOMOD-BLESSING_TOKEN_SELF";
     public BlessingSelfToken() : base(0, CardType.Skill, CardRarity.Token, TargetType.Self)
     {
     }

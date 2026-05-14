@@ -20,7 +20,7 @@ namespace JiangXiaoMod.Code.Cards.Rare;
 [Pool(typeof(JiangXiaoCardPool))]
 public sealed class SpaceGap : JiangXiaoCardModel
 {
-    public const string CardId = "SpaceGap";
+    public const string CardId = "JIANGXIAOMOD-SPACE_GAP";
     public const string Var = "M";
     public SpaceGap() : base(3, CardType.Skill, CardRarity.Rare, TargetType.Self)
     {

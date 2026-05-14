@@ -24,6 +24,7 @@ namespace JiangXiaoMod.Code.Cards.Basic;
 [Pool(typeof(JiangXiaoCardPool))]
 public sealed class StrikeJiangXiao : JiangXiaoCardModel
 {
+    public const string CardId = "JIANGXIAOMOD-STRIKE_JIANG_XIAO";
     private const decimal BaseDmg = 6m;
     private const decimal UpgradeDmg = 3m;
     private const decimal RankBonus = 2m;

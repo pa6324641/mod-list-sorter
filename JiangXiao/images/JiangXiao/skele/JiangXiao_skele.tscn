@@ -168,4 +168,4 @@ bone_angle = 0.0
 [node name="IK" type="Node2D" parent="."]
 
 [node name="FootL" type="Node2D" parent="IK"]
-position = Vector2(81, 495)
+position = Vector2(38, 460)

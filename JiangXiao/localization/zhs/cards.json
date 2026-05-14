@@ -58,9 +58,10 @@
 	"JIANGXIAOMOD-SHADOW_OF_VOID.title": "禍影之墟",
 	"JIANGXIAOMOD-SHADOW_OF_VOID.description": "選擇[gold]休息[/gold]或[gold]強化[/gold]。\n並獲得{M}點[blue]能量[/blue]。",
 	"JIANGXIAOMOD-STRENGTHEN_TOKEN.title": "強化",
-	"JIANGXIAOMOD-STRENGTHEN_TOKEN.description": "選擇牌組中的一張牌強化",  	
-	"JIANGXIAOMOD-REST_TOKEN.description": "回復生命值50%",
+	"JIANGXIAOMOD-STRENGTHEN_TOKEN.description": "選擇牌組中的一張牌強化",
 	"JIANGXIAOMOD-REST_TOKEN.title": "休息",
+	"JIANGXIAOMOD-REST_TOKEN.description": "回復生命值{HealAmount}。\n並結束你的回合。",
+
 
 	"JIANGXIAOMOD-SECONDARY_FACE.title": "副相",
 	"JIANGXIAOMOD-SECONDARY_FACE.description": "選擇手牌中1張牌，將{M:diff()}張複本加入手牌。複本耗能變為0並具有[gold]消耗[/gold] 。",
@@ -117,11 +118,41 @@
   	"JIANGXIAOMOD-DAGGER_ALL_OUT_STRIKE.description": "造成{X:choose(-1):X|{Damage:diff()}}點傷害。",
 
 	"JIANGXIAOMOD-FANG_TIAN_JI_HEAVY_STRIKE.title": "方天戟重擊",
- 	 "JIANGXIAOMOD-FANG_TIAN_JI_HEAVY_STRIKE.description": "對敵方全體造成{Damage:diff()}點傷害。\n施加{M:diff()}層[gold]易傷[/gold]。",
+	"JIANGXIAOMOD-FANG_TIAN_JI_HEAVY_STRIKE.description": "對敵方全體造成{Damage:diff()}點傷害。\n施加{M:diff()}層[gold]易傷[/gold]。",
 
 	"JIANGXIAOMOD-FANG_TIAN_JI_DEFENSIVE.title": "方天戟:守勢",
-	"JIANGXIAOMOD-FANG_TIAN_JI_DEFENSIVE.description": "對敵方全體造成{Damage:diff()}點傷害。\n施加{M:diff()}層[gold]虛弱[/gold]。\n給予我方全體{Block:diff()}點格擋",
+	"JIANGXIAOMOD-FANG_TIAN_JI_DEFENSIVE.description": "對敵方全體造成{Damage:diff()}點傷害。\n施加{M:diff()}層[gold]虛弱[/gold]。\n給予我方全體{Block:diff()}點格擋。",
 
 	"JIANGXIAOMOD-FANG_TIAN_JI_OFFENSIVE.title": "方天戟:攻勢",
-	"JIANGXIAOMOD-FANG_TIAN_JI_OFFENSIVE.description": "對敵方全體造成{Damage:diff()}點傷害{X}次。"
+	"JIANGXIAOMOD-FANG_TIAN_JI_OFFENSIVE.description": "對敵方全體造成{Damage:diff()}點傷害{X}次。",
+
+	"JIANGXIAOMOD-COMBAT_KNIFE_BASE.title": "格鬥刀:基礎",
+	"JIANGXIAOMOD-COMBAT_KNIFE_BASE.description": "選擇[gold]格鬥刀:砍[/gold]或[gold]格鬥刀:刺[/gold]，加入[blue]手牌[/blue]和[blue]消耗堆[/blue]中{M}張。",
+	"JIANGXIAOMOD-COMBAT_KNIFE_SLASH.title": "格鬥刀:砍",
+	"JIANGXIAOMOD-COMBAT_KNIFE_SLASH.description": "造成{Damage:diff()}點傷害。",
+	"JIANGXIAOMOD-COMBAT_KNIFE_STAB.title": "格鬥刀:刺",
+	"JIANGXIAOMOD-COMBAT_KNIFE_STAB.description": "造成{Damage:diff()}點傷害，並給予{X}層易傷。",
+
+	"JIANGXIAOMOD-COMBAT_KNIFE_ADVANCED.title": "格鬥刀:進階",
+	"JIANGXIAOMOD-COMBAT_KNIFE_ADVANCED.description": "本回合獲得[gold]格鬥刀:進階效果[/gold]。\n選擇[gold]格鬥刀:穩定&準確[/gold]或[gold]格鬥刀:靈敏&快速[/gold]，加入[blue]手牌[/blue]和[blue]消耗堆[/blue]中{M}張。",
+	"JIANGXIAOMOD-COMBAT_KNIFE_STABLE.title": "格鬥刀:穩定&準確",
+	"JIANGXIAOMOD-COMBAT_KNIFE_STABLE.description": "依據[blue]消耗堆[/blue]中的[gold]格斗刀精通[/gold]攻擊、技能牌數量，分別增加{X}[gold]力量[/gold]、{Y}[gold]敏捷[/gold]。",
+	"JIANGXIAOMOD-COMBAT_KNIFE_FLEXIBLE.title": "格鬥刀:靈敏&快速",
+	"JIANGXIAOMOD-COMBAT_KNIFE_FLEXIBLE.description": "選擇[blue]消耗堆[/blue]中{X}張[gold]格斗刀精通[/gold]牌自動打出。",
+
+	"JIANGXIAOMOD-COMBAT_KNIFE_EXPERT.title": "格鬥刀:專家",
+	"JIANGXIAOMOD-COMBAT_KNIFE_EXPERT.description": "選擇[gold]格鬥刀:百裂[/gold]或[gold]格鬥刀:禁區[/gold]，加入[blue]手牌[/blue]和[blue]消耗堆[/blue]中{M}張。",
+	"JIANGXIAOMOD-COMBAT_KNIFE_HUNDRED_RIPS.title": "格鬥刀:百裂",
+	"JIANGXIAOMOD-COMBAT_KNIFE_HUNDRED_RIPS.description": "造成{Damage:diff()}傷害{X}次。",
+	"JIANGXIAOMOD-COMBAT_KNIFE_FORBIDDEN_ZONE.title": "格鬥刀:禁區",
+	"JIANGXIAOMOD-COMBAT_KNIFE_FORBIDDEN_ZONE.description": "移除敵方1個[gold]Buff[/gold]，移除[gold]格擋[/gold]。\n打出手上的[gold]格斗刀精通[/gold]牌",
+
+	"JIANGXIAOMOD-DECOY.title": "誘餌(Beta)",
+ 	"JIANGXIAOMOD-DECOY.description": "召喚{M}點生命的誘餌。\n還沒有功能不要選!!",
+
+	"JIANGXIAOMOD-SILENCE_OF_VOID.title": "沉默之聲",
+	"JIANGXIAOMOD-SILENCE_OF_VOID.description": "[gold]星技[/gold]。\n封存敵方全體的 [gold]正面效果[/gold] 進 [blue]沉默之聲[/blue] 能力中。\n持續 {T} 回合。能力結束時返還效果。\n星技品質額外效果：{DPercent}% 最大生命傷害、暈眩。",
+
+	"JIANGXIAOMOD-DOMAIN_OF_TEARS.title": "域淚",
+ 	"JIANGXIAOMOD-DOMAIN_OF_TEARS.description": "獲得 [gold]域淚[/gold] 能力。\n目前將打出 {M} 張牌。"
 }

@@ -25,11 +25,22 @@ public abstract class JiangXiaoCardModel : CustomCardModel
     private static bool _isExecutingEXArt = false;
     public override string PortraitPath => $"{Id.Entry.RemovePrefix().ToLowerInvariant()}.png".CardImagePath();
     private readonly List<DynamicVar> _customVars = new();
-    private readonly List<IHoverTip> _customTips = new();
+    // private readonly List<IHoverTip> _customTips = new();
+    private readonly List<System.Func<IHoverTip>> _customTipFactories = new();
     private readonly HashSet<CardKeyword> _customKeywords = new();
     private readonly HashSet<CardTag> _customTags = new();
     protected override IEnumerable<DynamicVar> CanonicalVars => _customVars;
-    protected override IEnumerable<IHoverTip> ExtraHoverTips => _customTips;
+    // protected override IEnumerable<IHoverTip> ExtraHoverTips => _customTips;
+    protected override IEnumerable<IHoverTip> ExtraHoverTips
+    {
+        get
+        {
+            foreach (var factory in _customTipFactories)
+            {
+                yield return factory();
+            }
+        }
+    }
     public override HashSet<CardKeyword> CanonicalKeywords => _customKeywords;
     protected override HashSet<CardTag> CanonicalTags => _customTags;
 
@@ -72,15 +83,31 @@ public abstract class JiangXiaoCardModel : CustomCardModel
 
     // --- 其他工具方法 ---
     protected void JJTag(CardTag tag) => _customTags.Add(tag);
+    // protected void JJKeywordAndTip(CardKeyword kw)
+    // {
+    //     _customKeywords.Add(kw);
+    //     _customTips.Add(HoverTipFactory.FromKeyword(kw));
+    // }
     protected void JJKeywordAndTip(CardKeyword kw)
     {
         _customKeywords.Add(kw);
-        _customTips.Add(HoverTipFactory.FromKeyword(kw));
+        // 不要現在跑 FromKeyword，等到要顯示時再跑
+        _customTipFactories.Add(() => HoverTipFactory.FromKeyword(kw));
     }
-    protected void JJStaticTip(StaticHoverTip tip) => _customTips.Add(HoverTipFactory.Static(tip));
+    // protected void JJStaticTip(StaticHoverTip tip) => _customTips.Add(HoverTipFactory.Static(tip));
+    // protected void JJPowerTip<T>() where T : PowerModel
+    // {
+    //     _customTips.Add(HoverTipFactory.FromPower<T>());
+    // }
+    protected void JJStaticTip(StaticHoverTip tip) 
+    {
+        _customTipFactories.Add(() => HoverTipFactory.Static(tip));
+    }
+
     protected void JJPowerTip<T>() where T : PowerModel
     {
-        _customTips.Add(HoverTipFactory.FromPower<T>());
+        // 關鍵：將獲取邏輯封裝在 () => 中，這樣在 Card 創建時不會執行這行代碼
+        _customTipFactories.Add(() => HoverTipFactory.FromPower<T>());
     }
 
     //複製自動刷新
@@ -177,11 +204,18 @@ public abstract class JiangXiaoCardModel : CustomCardModel
                 await PlayerCmd.GainEnergy(1m, player);
             }
 
-            // 3. 夏家刀法: 棄牌堆抽 1 張刀法牌
+            // 3. 夏家刀法 (BLADE): 棄牌堆抽 1 張「非自身」的刀法牌
             if (this.IsJiangXiaoModBLADE() && JiangXiaoUtils.GetBladeRank(player) >= 4 && cardPlay.Card == this)
             {
-                var bladeCards = player.PlayerCombatState.DiscardPile.Cards.Where(c => c.IsJiangXiaoModBLADE()).ToList();
-                if (bladeCards.Any()) await CardPileCmd.Add(bladeCards[rng.NextInt(bladeCards.Count)], PileType.Hand);
+                // 增加條件：c != this 確保不會抓到正在打出的這張牌
+                var bladeCards = player.PlayerCombatState.DiscardPile.Cards
+                    .Where(c => c.IsJiangXiaoModBLADE() && c.Id != this.Id)
+                    .ToList();
+                
+                if (bladeCards.Any()) 
+                {
+                    await CardPileCmd.Add(bladeCards[rng.NextInt(bladeCards.Count)], PileType.Hand);
+                }
             }
 
             // 4. 天方戟: 全體濺射 25% 傷害
@@ -196,22 +230,26 @@ public abstract class JiangXiaoCardModel : CustomCardModel
                 }
             }
 
-            // 5. [核心修改] 格鬥刀: 從「消耗堆」隨機打出，上限次數 = Rank
+            // 5. 格鬥刀: 25% 機率從「消耗堆」隨機打出，上限次數 = 1
             if (this.IsJiangXiaoModCOMBATKNIFE() && JiangXiaoUtils.GetCombatKnifeRank(player) >= 4 && cardPlay.Card == this)
             {
-                int knifeRank = JiangXiaoUtils.GetCombatKnifeRank(player);
-                for (int i = 0; i < knifeRank-3 ; i++)
+                // 執行 25% 機率判定
+                if (rng.NextFloat() <= 0.25f)
                 {
-                    // 每次循環都重新獲取消耗堆，確保準確性
                     var validExhaustCards = player.PlayerCombatState.ExhaustPile.Cards
                         .Where(c => c != this && (c.Type == CardType.Attack || c.Type == CardType.Skill))
                         .ToList();
 
-                    if (validExhaustCards.Count == 0) break;
-
-                    var targetCard = validExhaustCards[rng.NextInt(validExhaustCards.Count)];
-                    // AutoPlay 內部會自動處理目標選取，但傳入 ResolveTargetFor(targetCard) 更精確
-                    await CardCmd.AutoPlay(choiceContext, targetCard, ResolveTargetFor(targetCard, rng));
+                    if (validExhaustCards.Any())
+                    {
+                        var targetCard = validExhaustCards[rng.NextInt(validExhaustCards.Count)];
+                        // 自動打出選定的卡牌
+                        for (int i = 0; i < 1 ; i++)
+                        {
+                            await CardCmd.AutoPlay(choiceContext, targetCard, ResolveTargetFor(targetCard, rng));    
+                        }
+                        
+                    }
                 }
             }
 

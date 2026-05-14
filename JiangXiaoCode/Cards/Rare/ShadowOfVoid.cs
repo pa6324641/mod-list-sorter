@@ -25,7 +25,7 @@ namespace JiangXiaoMod.Code.Cards.Rare;
 [Pool(typeof(JiangXiaoCardPool))]
 public class ShadowOfVoid : JiangXiaoCardModel
 {
-    public const string CardId = "ShadowOfVoid";
+    public const string CardId = "JIANGXIAOMOD-SHADOW_OF_VOID";
 
     public ShadowOfVoid() : base(4, CardType.Skill, CardRarity.Rare, TargetType.None)
     {

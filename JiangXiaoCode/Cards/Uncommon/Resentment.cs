@@ -18,7 +18,7 @@ namespace JiangXiaoMod.Code.Cards.Rare;
 [Pool(typeof(JiangXiaoCardPool))]
 public class Resentment : JiangXiaoCardModel
 {
-    public const string CardId = "Resentment";
+    public const string CardId = "JIANGXIAOMOD_RESENTMENT";
     
     // [STS2_Optimization] 建議使用 "M" 作為 Key，以便於 cards.json 調用 {M}
     private const string _mKey = "M";

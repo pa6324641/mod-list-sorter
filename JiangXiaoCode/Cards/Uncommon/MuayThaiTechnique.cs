@@ -82,7 +82,7 @@ public sealed class MuayThaiTechnique : JiangXiaoCardModel
         if (strengthAmount > 0)
         {
             // [STS2_API] 使用 PowerCmd 賦予能力
-            await PowerCmd.Apply<StrengthPower>(Owner.Creature, strengthAmount, Owner.Creature, null);
+            await PowerCmd.Apply<StrengthPower>(Owner.Creature, strengthAmount, Owner.Creature, this);
         }
     }
 

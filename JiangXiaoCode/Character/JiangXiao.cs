@@ -16,6 +16,7 @@ using JiangXiaoMod.Code.Character;
 using JiangXiaoMod.Code.Cards.Rare;
 using JiangXiaoMod.Code.Cards.Common;
 using JiangXiaoMod.Code.Cards.Uncommon;
+using JiangXiaoMod.Code.Cards.Token;
 using JiangXiaoMod.Code.Extensions;
 using MegaCrit.Sts2.Core.Nodes.Combat;
 using BaseLib.Patches.UI;
@@ -68,7 +69,7 @@ public class JiangXiao : CustomCharacterModel
 	];
 	// 初始遺物
 	public override IReadOnlyList<RelicModel> StartingRelics => [
-		ModelDb.Relic<InnerStarMap>() ,
+		ModelDb.Relic<InnerStarMap>(),
 		ModelDb.Relic<StarPowerLevel>() ,
 		ModelDb.Relic<StarSkillQuality>(),
 		ModelDb.Relic<BasicArts>() 

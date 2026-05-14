@@ -24,15 +24,12 @@ namespace JiangXiaoMod.Code.Cards.Rare;
 [Pool(typeof(JiangXiaoCardPool))]
 public sealed class FangTianJiOffensive : JiangXiaoCardModel
 {
-    public const string CardId = "FangTianJiOffensive";
+    public const string CardId = "JIANGXIAOMOD-FANG_TIAN_JI_OFFENSIVE";
     
     // 基礎數值定義
-    private const decimal BaseDamage = 12m;
+    private const decimal BaseDamage = 9m;
     private const decimal DamagePerRank = 2m;
     private const string XVar = "X"; // 用於動態顯示攻擊次數的變量
-
-    // 指定圖片路徑
-    public override string PortraitPath => "FangTianJiOffensive.png".CardImagePath();
 
     public FangTianJiOffensive() : base(3, CardType.Attack, CardRarity.Rare, TargetType.AllEnemies)
     {
