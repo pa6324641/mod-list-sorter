@@ -1,0 +1,23 @@
+{
+  "MODLISTSORTER.mod_title": "Mod List Sorter",
+
+  "MODLISTSORTER-HEADER_PRIORITY.title": "Current Priority Order (Higher is higher priority)",
+
+  "MODLISTSORTER-FORCE_TOP.title": "(Forced to Top)",
+
+  "MODLISTSORTER-LOCKED.title": "Locked",
+
+  "MODLISTSORTER-REMOVE.title": "❌ Remove",
+
+  "MODLISTSORTER-HEADER_LIST.title": "Mod List (Select and add)",
+
+  "MODLISTSORTER-NO_MODS.title": "No mods available to add",
+
+  "MODLISTSORTER-ADD.title": "➕ Add",
+
+  "MODLISTSORTER-ADDED_MSG.title": "[UI] Added {0} to the priority list!",
+
+  "MODLISTSORTER-REMOVED_MSG.title": "[UI] Removed priority for {0}!",
+
+  "MODLISTSORTER-GET_LIST_FAILED.title": "[Sorter] Failed to get available mod list: {0}"
+}

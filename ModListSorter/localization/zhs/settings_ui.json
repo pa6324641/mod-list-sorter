@@ -1,0 +1,26 @@
+{
+  "MODLISTSORTER.mod_title": "模組排序器",
+
+  "MODLISTSORTER-HEADER_PRIORITY.title": "目前的優先度排序 (越上面越優先)",
+
+  "MODLISTSORTER-FORCE_TOP.title": "(強制置頂)",
+
+  "MODLISTSORTER-LOCKED.title": "已鎖定",
+
+  "MODLISTSORTER-REMOVE.title": "❌ 移除",
+
+  "MODLISTSORTER-HEADER_LIST.title": "模組列表 (選擇並添加)",
+
+  "MODLISTSORTER-NO_MODS.title": "目前沒有可添加的模組",
+
+  "MODLISTSORTER-ADD.title": "➕ 添加",
+
+  "MODLISTSORTER-ADDED_MSG.title":
+  "[UI] 已將 {0} 加入優先清單！",
+
+  "MODLISTSORTER-REMOVED_MSG.title":
+  "[UI] 已移除 {0} 的優先權！",
+
+  "MODLISTSORTER-GET_LIST_FAILED.title":
+  "[Sorter] 獲取可用模組列表失敗: {0}"
+}

@@ -76,7 +76,7 @@
             <Private>false</Private>
         </Reference>
 
-        <PackageReference Include="Alchyr.Sts2.BaseLib" Version="3.1.0" PrivateAssets="All" />
+        <PackageReference Include="Alchyr.Sts2.BaseLib" Version="3.3.2" PrivateAssets="All" />
         <PackageReference Include="Alchyr.Sts2.ModAnalyzers" Version="0.0.9" />
         <AdditionalFiles Include="ModListSorter/localization/**/*.json" />
     </ItemGroup>
@@ -113,9 +113,9 @@
         <Copy SourceFiles="$(TargetPath)" DestinationFolder="$(ModsPath)$(MSBuildProjectName)/" />
         <Copy SourceFiles="ModListSorter.json" DestinationFolder="$(ModsPath)$(MSBuildProjectName)/" />
         
-        <Message Text="正在複製 BaseLib 3.1.0 到 mods 文件夾..." Importance="high" />
+        <Message Text="正在複製 BaseLib 3.3.2 到 mods 文件夾..." Importance="high" />
         <ItemGroup>
-            <BaseLibFiles Include="$(NuGetPackageRoot)alchyr.sts2.baselib/3.1.0/lib/net9.0/BaseLib.dll;&#xA;                                 $(NuGetPackageRoot)alchyr.sts2.baselib/3.1.0/Content/BaseLib.pck;&#xA;                                 $(NuGetPackageRoot)alchyr.sts2.baselib/3.1.0/Content/BaseLib.json;" />
+            <BaseLibFiles Include="$(NuGetPackageRoot)alchyr.sts2.baselib/3.3.2/lib/net9.0/BaseLib.dll;&#xA;                                 $(NuGetPackageRoot)alchyr.sts2.baselib/3.3.2/Content/BaseLib.pck;&#xA;                                 $(NuGetPackageRoot)alchyr.sts2.baselib/3.3.2/Content/BaseLib.json;" />
         </ItemGroup>
         <Copy SourceFiles="@(BaseLibFiles)" DestinationFolder="$(ModsPath)BaseLib/" />
     </Target>
